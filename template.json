@@ -13,8 +13,7 @@
     "ssh_username": "vagrant",
     "ssh_password": "vagrant",
     "vc_box": "{{env `VC_BOX_NAME`}}",
-    "vc_box_ver": "{{env `VC_BOX_VER`}}",
-    "vc_box_token": "{{env `VC_TOKEN`}}"
+    "vc_box_ver": "{{env `VC_BOX_VER`}}"
   },
   "builders": [
     {
@@ -92,9 +91,24 @@
       {
         "type": "vagrant-cloud",
         "box_tag": "{{user `vc_box`}}",
-        "access_token": "{{user `vc_box_token`}}",
-        "version": "{{user `vc_box_ver`}}",
+        "version": "{{user `vc_box_ver`}}.pre",
         "version_description": "Ubuntu Xenial {{user `vc_box_ver`}} LTS"
+      },
+      {
+        "type": "shell-local",
+        "only_on": [
+          "darwin",
+          "linux"
+        ],
+        "scripts": [
+          "scripts/run_kitchen.sh"
+        ],
+        "environment_vars": [
+          "VC_BOX_NAME={{user `vc_box`}}",
+          "VC_BOX_VER={{user `vc_box_ver`}}",
+          "TEST_OS_VER={{user `vc_box_ver`}}"
+        ],
+        "keep_input_artifact": true
       }
     ]
   ]
