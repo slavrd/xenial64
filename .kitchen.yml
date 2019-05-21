@@ -6,9 +6,10 @@ provisioner:
   name: shell
 
 platforms:
-  - name: vbox/nginx64
+  - name: <%= ENV['VC_BOX_NAME'] %>-virtualbox
     driver:
-      box: test-xenial64
+      box: <%= ENV['VC_BOX_NAME'] %>
+      box_version: <%= ENV['VC_BOX_VER'] %>.pre
       provider: virtualbox
 
 verifier:
