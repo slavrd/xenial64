@@ -6,16 +6,16 @@
 
 # input viars
 
-UBUNTU_VER=$1
-
 if [ "$1" == "" ]; then
     echo "ERROR: Need to pass an Ubuntu version XX.XX.X" >&2
     exit 1
 fi
 
+BOX_OS_VER=$1
+
 # end input vars
 
-export ISO_URL="http://releases.ubuntu.com/$UBUNTU_VER/ubuntu-$UBUNTU_VER-server-amd64.iso"
+export ISO_URL="http://releases.ubuntu.com/$BOX_OS_VER/ubuntu-$BOX_OS_VER-server-amd64.iso"
 
 export VC_BOX_NAME=$2
 
@@ -27,7 +27,7 @@ fi
 
 # get ISO_SHA
 export ISO_SHA=$(
-    curl -s "http://releases.ubuntu.com/$UBUNTU_VER/SHA256SUMS" | 
+    curl -s "http://releases.ubuntu.com/$BOX_OS_VER/SHA256SUMS" | 
         while read -r SHA ARCH; do
             if [ "$ARCH" == '*ubuntu-16.04.6-server-amd64.iso' ]; then
                 echo $SHA
@@ -37,7 +37,7 @@ export ISO_SHA=$(
 )
 
 if [ "$ISO_SHA" == "" ]; then
-    echo "ERROR: SHA256 SUM not found for version $UBUNTU_VER . Make sure the version is correct" >&2
+    echo "ERROR: SHA256 SUM not found for version $BOX_OS_VER . Make sure the version is correct" >&2
     exit 1
 fi
 

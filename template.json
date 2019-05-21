@@ -13,7 +13,8 @@
     "ssh_username": "vagrant",
     "ssh_password": "vagrant",
     "vc_box": "{{env `VC_BOX_NAME`}}",
-    "vc_box_ver": "{{env `VC_BOX_VER`}}"
+    "vc_box_ver": "{{env `VC_BOX_VER`}}",
+    "box_os_ver": "{{env `BOX_OS_VER`}}"
   },
   "builders": [
     {
@@ -92,7 +93,7 @@
         "type": "vagrant-cloud",
         "box_tag": "{{user `vc_box`}}",
         "version": "{{user `vc_box_ver`}}.pre",
-        "version_description": "Ubuntu Xenial {{user `vc_box_ver`}} LTS"
+        "version_description": "Ubuntu Xenial {{user `box_os_ver`}} LTS"
       },
       {
         "type": "shell-local",
@@ -106,7 +107,7 @@
         "environment_vars": [
           "VC_BOX_NAME={{user `vc_box`}}",
           "VC_BOX_VER={{user `vc_box_ver`}}",
-          "TEST_OS_VER={{user `vc_box_ver`}}"
+          "TEST_OS_VER={{user `box_os_ver`}}"
         ],
         "keep_input_artifact": true
       }
