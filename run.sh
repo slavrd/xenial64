@@ -43,5 +43,7 @@ fi
 
 # execute packer
 packer validate template.json && { 
-    packer build template.json || exit 1
+    packer build template.json || exit 1 #&& {
+        #scripts/release_vc_version.sh
+    #}
 } || exit 1
