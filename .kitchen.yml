@@ -1,0 +1,19 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: shell
+
+platforms:
+  - name: ubuntu-<%= ENV['VC_BOX_NAME'] %>-virtualbox
+    driver:
+      box: <%= ENV['VC_BOX_NAME'] %>
+      box_version: <%= ENV['VC_BOX_VER'] %>.pre
+      provider: virtualbox
+
+verifier:
+  name: inspec
+
+suites:
+  - name: default

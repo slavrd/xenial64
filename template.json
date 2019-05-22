@@ -7,11 +7,14 @@
     "memory": "512",
     "disk_size": "40960",
     "headless": "false",
-    "iso_checksum": "16afb1375372c57471ea5e29803a89a5a6bd1f6aabea2e5e34ac1ab7eb9786ac",
+    "iso_checksum": "{{env `ISO_SHA`}}",
     "iso_checksum_type": "sha256",
-    "iso_url": "http://releases.ubuntu.com/16.04/ubuntu-16.04.6-server-amd64.iso",
+    "iso_url": "{{env `ISO_URL`}}",
     "ssh_username": "vagrant",
-    "ssh_password": "vagrant"
+    "ssh_password": "vagrant",
+    "vc_box": "{{env `VC_BOX_NAME`}}",
+    "vc_box_ver": "{{env `VC_BOX_VER`}}",
+    "box_os_ver": "{{env `BOX_OS_VER`}}"
   },
   "builders": [
     {
@@ -36,7 +39,7 @@
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
       "shutdown_command": "echo 'vagrant' | sudo -S poweroff",
-      "post_shutdown_delay": "2m",
+      "post_shutdown_delay": "30s",
       "ssh_password": "{{user `ssh_username`}}",
       "ssh_username": "{{user `ssh_password`}}",
       "ssh_wait_timeout": "20m",
@@ -80,10 +83,34 @@
     }
   ],
   "post-processors": [
-    {
-      "type": "vagrant",
-      "keep_input_artifact": true,
-      "output": "{{.BuildName}}.box"
-    }
+    [
+      {
+        "type": "vagrant",
+        "keep_input_artifact": true,
+        "output": "{{.BuildName}}.box"
+      },
+      {
+        "type": "vagrant-cloud",
+        "box_tag": "{{user `vc_box`}}",
+        "version": "{{user `vc_box_ver`}}.pre",
+        "version_description": "Ubuntu {{user `box_os_ver`}} LTS"
+      },
+      {
+        "type": "shell-local",
+        "only_on": [
+          "darwin",
+          "linux"
+        ],
+        "scripts": [
+          "scripts/run_kitchen.sh"
+        ],
+        "environment_vars": [
+          "VC_BOX_NAME={{user `vc_box`}}",
+          "VC_BOX_VER={{user `vc_box_ver`}}",
+          "TEST_OS_VER={{user `box_os_ver`}}"
+        ],
+        "keep_input_artifact": true
+      }
+    ]
   ]
 }
