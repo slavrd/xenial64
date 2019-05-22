@@ -1,6 +1,6 @@
 {
   "variables": {
-    "build_name": "ubuntu-1604",
+    "build_name": "ubuntu-vm",
     "build_cpu_cores": "2",
     "build_memory": "1024",
     "cpu_cores": "1",
@@ -93,7 +93,7 @@
         "type": "vagrant-cloud",
         "box_tag": "{{user `vc_box`}}",
         "version": "{{user `vc_box_ver`}}.pre",
-        "version_description": "Ubuntu Xenial {{user `box_os_ver`}} LTS"
+        "version_description": "Ubuntu {{user `box_os_ver`}} LTS"
       },
       {
         "type": "shell-local",
