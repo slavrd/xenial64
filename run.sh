@@ -11,7 +11,7 @@ if [ "$1" == "" ]; then
     exit 1
 fi
 
-BOX_OS_VER=$1
+export BOX_OS_VER=$1
 
 # end input vars
 
