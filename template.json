@@ -1,6 +1,6 @@
 {
   "variables": {
-    "build_name": "ubuntu-vm",
+    "build_name": "ubuntu-1604",
     "build_cpu_cores": "2",
     "build_memory": "1024",
     "cpu_cores": "1",
