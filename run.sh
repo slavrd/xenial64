@@ -29,7 +29,7 @@ fi
 export ISO_SHA=$(
     curl -s "http://releases.ubuntu.com/$BOX_OS_VER/SHA256SUMS" | 
         while read -r SHA ARCH; do
-            if [ "$ARCH" == '*ubuntu-16.04.6-server-amd64.iso' ]; then
+            if [ "$ARCH" == "*ubuntu-$BOX_OS_VER-server-amd64.iso" ]; then
                 echo $SHA
                 break
             fi
@@ -43,7 +43,5 @@ fi
 
 # execute packer
 packer validate template.json && { 
-    packer build template.json || exit 1 #&& {
-        #scripts/release_vc_version.sh
-    #}
+    packer build -except vagrant-cloud template.json
 } || exit 1
