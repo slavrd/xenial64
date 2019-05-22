@@ -42,6 +42,5 @@ if [ "$ISO_SHA" == "" ]; then
 fi
 
 # execute packer
-packer validate template.json && { 
-    packer build -except vagrant-cloud template.json
-} || exit 1
+packer validate template.json && \
+    packer build template.json
