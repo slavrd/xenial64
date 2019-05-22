@@ -9,7 +9,7 @@ platforms:
   - name: ubuntu-<%= ENV['VC_BOX_NAME'] %>-virtualbox
     driver:
       box: <%= ENV['VC_BOX_NAME'] %>
-      box_version: <%= ENV['VC_BOX_VER'] %>.pre
+      box_version: <%= ENV['VC_BOX_VER'] %>
       provider: virtualbox
 
 verifier:

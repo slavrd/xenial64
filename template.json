@@ -92,7 +92,7 @@
       {
         "type": "vagrant-cloud",
         "box_tag": "{{user `vc_box`}}",
-        "version": "{{user `vc_box_ver`}}.pre",
+        "version": "{{user `vc_box_ver`}}",
         "version_description": "Ubuntu {{user `box_os_ver`}} LTS"
       },
       {
